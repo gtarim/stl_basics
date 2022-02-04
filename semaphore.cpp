@@ -3,7 +3,7 @@
 #include <condition_variable>
 #include <mutex>
 
-template <std::size_t size>
+template <std::size_t size = 1>
 class semaphore
 {
     std::mutex mutex;
@@ -31,7 +31,7 @@ public:
     std::size_t max() { return size; }
 };
 
-semaphore<1> sp;
+semaphore<> sp;
 void tf1()
 {
     std::cout << "tf1 : began...\n";
