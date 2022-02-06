@@ -12,6 +12,7 @@ class semaphore
 public:
     constexpr semaphore() : count{ size } {}
     semaphore( const semaphore& ) = delete;
+    ~semaphore() {};
 
     void acquire()
     {
