@@ -12,9 +12,9 @@ class RWLock
 public:
     RWLock( ) { }
     RWLock ( const RWLock& ) = delete;
-    
+    ~RWLock() {}
     template <typename Callback, typename ...Args>
-    auto read( Callback&& f, Args&&... args)
+    decltype(auto) read( Callback&& f, Args&&... args)
     {
         std::shared_lock<std::shared_mutex> lock( mutex );
         auto task( std::bind( std::forward<Callback>(f), std::forward<Args>(args)... ) );
@@ -23,7 +23,7 @@ public:
     }
 
     template <typename Callback, typename ...Args>
-    auto write( Callback&& f, Args&&... args )
+    decltype(auto) write( Callback&& f, Args&&... args )
     {
         std::unique_lock<std::shared_mutex> lock( mutex );
         auto task { std::bind( std::forward<Callback>(f), std::forward<Args>(args)... ) };
@@ -36,7 +36,8 @@ class IntContainer
     std::vector<int> data;
 public:
     explicit IntContainer( std::vector<int> data ) : data{ data } { }
-
+    ~IntContainer() = default;
+    
     int get( int index )
     {
         if( index >= data.size() ) return -1;
