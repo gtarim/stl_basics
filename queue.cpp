@@ -1,5 +1,6 @@
 #include <iostream>
 
+//TODO:: if capacity full when capacity declared as >0 needs to impl. resizable heap allocation
 template <typename T, int capacity=0>
 class queue
 {
